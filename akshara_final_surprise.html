@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Akshara Surprise</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ffd6eb;--lilac:#f0e6ff;--btn1:#ff8fc2;--btn2:#d6a8ff;--hand:'Great Vibes',cursive;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Poppins,sans-serif;
+  background:linear-gradient(180deg,var(--pink),var(--lilac));
+  display:flex;align-items:center;justify-content:center;min-height:100vh;overflow:hidden;
+}
+.hearts{position:fixed;inset:0;pointer-events:none;z-index:0}
+.heart{position:absolute;bottom:-10%;color:#ff9ecf;opacity:.9;font-size:18px;animation:rise linear infinite}
+@keyframes rise{0%{transform:translateY(0)scale(.9);opacity:0}10%{opacity:1}100%{transform:translateY(-120vh)scale(1.1);opacity:0}}
+.card{position:relative;z-index:2;background:rgba(255,255,255,.95);border-radius:20px;max-width:900px;width:100%;padding:24px;box-shadow:0 20px 60px rgba(120,60,120,.1);text-align:center}
+.title{font-family:var(--hand);font-size:64px;color:#7b0f5a;margin-bottom:8px}
+.small{color:#79406a;margin-bottom:16px}
+.slide{display:none;opacity:0;transform:translateY(6px);transition:all .45s}
+.slide.active{display:block;opacity:1;transform:translateY(0)}
+.bigtext{font-size:26px;color:#47203b;margin-bottom:14px}
+.btn-row{margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn{
+  background:linear-gradient(90deg,var(--btn1),var(--btn2));border:none;color:#fff;
+  padding:12px 20px;border-radius:12px;font-weight:700;cursor:pointer;
+  box-shadow:0 10px 28px rgba(200,90,170,.14);
+}
+.btn:hover{transform:translateY(-3px)}
+.btn.secondary{background:#fff;color:#7b0f5a;border:2px solid #ffd6eb}
+.black-full{background:#000;color:#fff;border-radius:14px;height:70vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.reveal{font-family:var(--hand);font-size:80px;color:#0b2942;margin:20px 0;text-shadow:0 4px 14px rgba(0,0,0,.1)}
+
+/* animated cake */
+.cake-wrap{display:flex;justify-content:center;margin:20px 0}
+.cake{
+  position:relative;width:260px;height:200px;border-radius:0 0 20px 20px;
+  background:linear-gradient(180deg,#ffb6c1 0%,#ff80a1 100%);
+  box-shadow:inset 0 -8px 12px rgba(0,0,0,.15),0 12px 28px rgba(0,0,0,.2);
+  animation:bounce 3s ease-in-out infinite;
+}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.cake::before{
+  content:'';position:absolute;top:-40px;left:0;width:100%;height:60px;
+  background:radial-gradient(circle at 50% 60%,#ffeaf2 0%,#ffb6c1 70%);
+  border-radius:50%;box-shadow:inset 0 4px 8px rgba(255,255,255,.8);
+}
+.icing-drip{
+  position:absolute;top:10px;left:0;width:100%;height:20px;
+  background:repeating-linear-gradient(90deg,#fff6f9 0 10px,#ffe4ec 10px 20px);
+  border-bottom-left-radius:40% 100%;border-bottom-right-radius:40% 100%;
+  animation:drip 2s infinite alternate ease-in-out;
+}
+@keyframes drip{0%{height:22px}100%{height:26px}}
+.cake-top-text{
+  position:absolute;top:-10px;left:50%;transform:translateX(-50%);
+  font-family:var(--hand);font-size:48px;color:#e75480;text-shadow:0 3px 6px rgba(0,0,0,.15);
+}
+.candle{position:absolute;top:-55px;width:12px;height:40px;background:#fff;border-radius:3px;left:50%;transform:translateX(-50%)}
+.flame{
+  position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  width:14px;height:14px;border-radius:50%;
+  background:radial-gradient(circle,#ffd86b,#ff7a7a);box-shadow:0 6px 14px rgba(255,120,80,.3);
+  animation:flicker .8s infinite alternate;
+}
+@keyframes flicker{0%{transform:translateX(-50%) scale(1)}100%{transform:translateX(-50%) scale(1.2)}}
+.message-box{margin-top:20px;padding:18px;border-radius:12px;background:linear-gradient(#fff6fb,#fff9ff);color:#4a2360;text-align:left}
+</style>
+</head>
+<body>
+<div class="hearts" id="hearts"></div>
+
+<audio id="bgMusic" src="Yeh Raaten Yeh Mausam Sanam ft Simran Sehgal(KoshalWorld.Com).mp3"></audio>
+
+<div class="card">
+  <div class="title">Happy Birthday Akshara!</div>
+  <div class="small">Tap through ❤️</div>
+
+  <div class="slide active"><div class="bigtext">It's your special day yeyeye!..</div><div class="btn-row"><button class="btn" onclick="next()">Next</button></div></div>
+
+  <div class="slide"><div class="bigtext">I made something special for you..</div><div class="btn-row"><button class="btn" onclick="next()">Next</button></div></div>
+
+  <div class="slide">
+    <div class="bigtext">Do you wanna see what I made?</div>
+    <div class="btn-row">
+      <button class="btn" onclick="next()">YES 💖</button>
+      <button class="btn secondary" onclick="show(7)">NO 😅</button>
+    </div>
+  </div>
+
+  <div class="slide"><div class="bigtext">Have a look at it Akshara ji..</div><div class="btn-row"><button class="btn" onclick="next()">Ready ✨</button></div></div>
+
+  <div class="slide"><div class="black-full"><div style="font-size:22px;margin-bottom:16px;">Lights off..</div><button class="btn" onclick="lightOn()">Light On 💡</button></div></div>
+
+  <div class="slide">
+    <div class="reveal" id="revealText" style="opacity:0;transition:.8s;">Happy Birthday Akshu</div>
+    <div id="subText" style="opacity:0;transition:.8s .2s;">Make a wish & smile 😍</div>
+    <div class="btn-row"><button class="btn" onclick="next()">Cut Cake 🎂</button></div>
+  </div>
+
+  <div class="slide">
+    <div class="bigtext">Let's cut the cake Akshu 🎂</div>
+    <div class="cake-wrap">
+      <div class="cake">
+        <div class="icing-drip"></div>
+        <div class="cake-top-text">17</div>
+        <div class="candle"><div class="flame"></div></div>
+      </div>
+    </div>
+    <div class="btn-row"><button class="btn" onclick="next()">Next</button></div>
+  </div>
+
+  <div class="slide">
+    <div class="bigtext">Well, I have a message for you Akshu 💌</div>
+    <div class="message-box">
+      <p>Dear Akshara,</p>
+      <p>May your days glow with laughter, your nights feel peaceful, and your dreams turn real one by one.  
+      You bring joy in small moments — and that’s your magic.  
+      Stay soft, stay bright, and never forget how loved you are. 💖</p>
+      <p style="font-weight:700">– Ali Baba 💫</p>
+    </div>
+  </div>
+</div>
+
+<script>
+let i=0;const slides=[...document.querySelectorAll('.slide')];
+function show(n){slides.forEach(s=>s.classList.remove('active'));if(slides[n])slides[n].classList.add('active');i=n;}
+function next(){show(Math.min(i+1,slides.length-1));}
+function lightOn(){
+  const m=document.getElementById('bgMusic');
+  m.play().catch(()=>alert("Tap again to start music 🎶"));
+  next();setTimeout(()=>{document.getElementById('revealText').style.opacity=1;document.getElementById('subText').style.opacity=1;},500);
+}
+const hearts=document.getElementById('hearts');
+for(let h=0;h<20;h++){const e=document.createElement('div');e.className='heart';e.style.left=(5+Math.random()*90)+'%';e.style.fontSize=(12+Math.random()*20)+'px';e.style.animationDuration=(8+Math.random()*8)+'s';e.style.animationDelay=(-Math.random()*8)+'s';e.textContent='💗';hearts.appendChild(e);}
+</script>
+</body>
+</html>
